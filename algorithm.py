@@ -4,7 +4,8 @@ import math
 # Given n points, we want to create a function as a sum of e^ikt to pass through all n points
 
 # Points will be denoted as an ordered pair, with its real part and imaginary part
-points=[(0,4),(2,4),(3,5)]
+points=[[0,4],[2,4],[3,5]]
+
 aCoefficients=[]
 for i in range(len(points)):
     temp=[]
@@ -15,10 +16,11 @@ aCoefficients=np.array(aCoefficients)
 asolutions=np.array([point[0] for point in points])
 a=np.linalg.solve(aCoefficients, asolutions)
 
+
 bCoefficients=[]
 for i in range(len(points)):
-    temp=[]
-    for j in range(len(points)):
+    temp=[1]
+    for j in range(1,len(points)):
         temp.append(math.sin(i*j))
     bCoefficients.append(temp)
 bCoefficients=np.array(bCoefficients)
@@ -28,3 +30,4 @@ b=np.linalg.solve(bCoefficients, bsolutions)
 
 print(a)
 print(b)
+
