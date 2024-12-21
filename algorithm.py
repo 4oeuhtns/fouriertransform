@@ -31,3 +31,16 @@ b=np.linalg.solve(bCoefficients, bsolutions)
 print(a)
 print(b)
 
+coefficients=[a[0],b[0]]
+for i in range(1,len(points)):
+    positive=(a[i]+b[i])/2
+    negative=(a[i]-b[i])/2
+
+    coefficients.append(positive)
+    coefficients.append(negative)
+
+print(coefficients)
+
+# The output of coefficients is organized as follows:
+# The first value is the real constant, the second value is the imaginary constant.
+# Afterwards, the number at the 2k th index is the coefficient for e^ikt, and the value at the 2k+1 th index is the coefficient for e^-ikt
