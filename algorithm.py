@@ -44,3 +44,17 @@ print(coefficients)
 # The output of coefficients is organized as follows:
 # The first value is the real constant, the second value is the imaginary constant.
 # Afterwards, the number at the 2k th index is the coefficient for e^ikt, and the value at the 2k+1 th index is the coefficient for e^-ikt
+
+
+# Desmos partial input
+#
+# The commented code will create an input for desmos to plot the curve.
+# The exponents don't seem to work though :skull:
+#
+# print(a[0],"+ i",b[0],end="")
+# for i in range(1,len(points)):
+#     positive=(a[i]+b[i])/2
+#     negative=(a[i]-b[i])/2
+
+#     print("+",positive,"e^(i",i,"t) +",negative,"e^(-i",i,"t)",end="")
+
