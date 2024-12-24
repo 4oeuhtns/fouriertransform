@@ -87,4 +87,15 @@ solutions=np.linalg.solve(coefficients, complexPoints)
 
 print(solutions.tolist())
 
+if len(points)%2==1:
+    start=-1*(len(points)-1)//2
+else:
+    start=-1*(len(points))//2+1
 
+out=""
+for i in range(len(points)):
+    out=out+str(solutions[i])+"e^{\\frac{"+str(2*(i+start))+"\pi}{"+str(len(points))+"}it}+"
+
+out=out.replace("j", "i")
+
+print(out)
