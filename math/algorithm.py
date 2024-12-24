@@ -4,7 +4,7 @@ import math
 # Given n points, we want to create a function as a sum of e^ikt to pass through all n points
 
 # Points will be denoted as an ordered pair, with its real part and imaginary part
-points=[[0,0],[2,0],[1.5,1],[1,2],[0.5,1]]
+points=[[0,0],[2,0],[1.5,1],[1,2]]
 
 # aCoefficients=[]
 # for i in range(len(points)):
@@ -65,7 +65,7 @@ coefficients=[]
 
 for i in range(len(points)):
     temp=[]
-    if i%2==1:
+    if len(points)%2==1:
         for k in range(-1*(len(points)-1)//2,(len(points)-1)//2+1):
             temp.append(math.cos(2*math.pi*i*k/len(points))+math.sin(2*math.pi*i*k/len(points))*1j)
         coefficients.append(temp)
@@ -99,3 +99,7 @@ for i in range(len(points)):
 out=out.replace("j", "i")
 
 print(out)
+
+print()
+print()
+print(complexPoints)
