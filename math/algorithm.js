@@ -2,7 +2,7 @@ const math = require('mathjs');
 
 // points
 
-const points=[[0,0],[2,0],[1.5,1],[1,2],[0.5,1]];
+const points=[[0,0],[0.5,0],[1,0],[1.5,0],[2,0],[2,0.5],[2,1],[2,1.5],[2,2],[1.5,2],[1,2],[0.5,2],[0,2],[0,1.5],[0,1],[0,0.5]];
 
 // Coefficient matrix for system of equations
 const coefficients=[];
@@ -58,4 +58,4 @@ for (let i = 0; i < points.length; i++) {
     out += `(${solution[i]})e^{\\frac{${2 * (i + start)}\\pi}{${points.length}}it}+`;
 }
 
-console.log(out);
+console.log(out.slice(0, -1));
