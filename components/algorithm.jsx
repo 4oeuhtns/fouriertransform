@@ -4,24 +4,50 @@ import React, { useState, useEffect } from "react";
 import { complex, lusolve, cos, sin } from "mathjs";
 
 export default function Solver() {
+
   const [points, setPoints] = useState([
-    [0, 0],
-    [0.5, 0],
-    [1, 0],
-    [1.5, 0],
-    [2, 0],
-    [2, 0.5],
-    [2, 1],
-    [2, 1.5],
-    [2, 2],
-    [1.5, 2],
-    [1, 2],
-    [0.5, 2],
-    [0, 2],
-    [0, 1.5],
-    [0, 1],
-    [0, 0.5],
+    [0,0],
+    [1,1],
+    [0,2],
+    [0,5],
+    [3,1],
+    [2,-2],
   ]);
+
+  // //Temp
+  // useEffect(() => {
+  //   const squarePoints = [];
+  //   const n = 60;
+  //   for (let i = 0; i < n; i++) {
+  //     const t = (4 * i) / n;
+  //     const seg = Math.floor(t);
+  //     const u = t - seg;
+  //     let x, y;
+
+  //     switch (seg) {
+  //       case 0:
+  //         x = -1 + u * 2;
+  //         y = -1;
+  //         break;
+  //       case 1:
+  //         x = 1;
+  //         y = -1 + u * 2;
+  //         break;
+  //       case 2:
+  //         x = 1 - u * 2;
+  //         y = 1;
+  //         break;
+  //       default:
+  //         x = -1;
+  //         y = 1 - u * 2;
+  //         break;
+  //     }
+  //     squarePoints.push([x, y]);
+  //   }
+  //   setPoints(squarePoints);
+  // }, []);
+
+ 
 
   useEffect(() => {
     const tempCoefficients = [];
@@ -84,5 +110,4 @@ export default function Solver() {
     }
   }, [coefficients, complexPoints, points]);
 
-  return <p>{JSON.stringify(coefficients)}</p>;
 }
