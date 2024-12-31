@@ -1,6 +1,7 @@
-"use server";
+"use client";
 
-export async function drawTest(ctx, frame) {
+export const drawTest = (ctx, frame) => {
+  console.log("inside draw");
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.fillStyle = "#000000";
   ctx.beginPath();
