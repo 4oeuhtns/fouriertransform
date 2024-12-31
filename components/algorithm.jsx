@@ -1,4 +1,4 @@
-import { complex, lusolve, cos, sin, atan } from "mathjs";
+import { complex, lusolve, cos, sin, atan2 } from "mathjs";
 
 export function solver(points) {
   // Calculate coefficients matrix
@@ -64,7 +64,7 @@ export function solver(points) {
     return {
       freq: frequency,
       amp: Math.sqrt((sol[0].re)**2 + (sol[0].im)**2),  // Amplitude
-      phase: atan(sol[0].im / sol[0].re),  // Phase angle
+      phase: atan2(sol[0].im, sol[0].re),  // Phase angle
     };
   });
 }
