@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="h-screen w-full flex justify-center items-center text-5xl font-operatorItalic">
       <h1 className="text-5xl font-operatorItalic">Fourier Transforms</h1>
-      <Epicycle points={points} speed={0.01} />
+      <Epicycle points={points} speed={0.01} width={600} height={600} />
     </div>
   );
 }
