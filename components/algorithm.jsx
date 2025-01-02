@@ -59,13 +59,28 @@ export function solver(points) {
   console.log(out.slice(0, -1));
   
   // Return json
-  return solution.map((sol, index) => {
-    let frequency = index - Math.floor((solution.length-1)/2)
-    console.log(Math.atan2(sol[0].im, sol[0].re));
+  return solution
+  .map((sol, index) => {
+    let frequency = index - Math.floor((solution.length - 1) / 2);
     return {
       freq: frequency,
-      amp: Math.sqrt((sol[0].re)**2 + (sol[0].im)**2),  // Amplitude
-      phase: Math.atan2(sol[0].im, sol[0].re),  // Phase angle
+      amp: Math.sqrt((sol[0].re) ** 2 + (sol[0].im) ** 2), // Amplitude
+      phase: Math.atan2(sol[0].im, sol[0].re),             // Phase angle
     };
-  });
+  })
+  .sort((a, b) => b.amp - a.amp);
+    // console.log(jsonData)
+
+    // let sortedDataDescending = jsonData.slice().sort((a, b) => {
+    //   if (a.amp === null) return 1; // Place null amplitudes at the end
+    //   if (b.amp === null) return -1;
+    //   return b.amp - a.amp; // Descending order
+    // })
+    // console.log(sortedDataDescending);
+    // console.log(jsonData);
+
+  //   return{jsonData}
+  
+    
+  // });
 }
