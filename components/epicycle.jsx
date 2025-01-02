@@ -16,12 +16,12 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.scale(1, -1); // Flip vertically
 
     ctx.clearRect(-ctx.canvas.width / 2, -ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height);
-    ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
     ctx.lineWidth = 5;
 
     // Store previous point before calculating new one
     prevPoint.current = { ...currentPoint.current };
 
+    ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
     // Draw vector
     ctx.beginPath();
     let prev = [0, 0];
@@ -31,11 +31,30 @@ export default function Epicycle({ points, speed, ...props }) {
             prev[0] + circles[i].amp * 50 * Math.cos(circles[i].freq * frame + circles[i].phase),
             prev[1] + circles[i].amp * 50 * Math.sin(circles[i].freq * frame + circles[i].phase)
         ];
+
         ctx.moveTo(prev[0], prev[1]);
         ctx.lineTo(cur[0], cur[1]);
+
         prev = cur;
     }
     ctx.stroke();
+
+    ctx.strokeStyle = "rgba(0, 255, 0, 0.3)";
+    prev = [0, 0];
+    cur = [];
+    for (let i = 0; i < circles.length; i++) {
+        cur = [
+            prev[0] + circles[i].amp * 50 * Math.cos(circles[i].freq * frame + circles[i].phase),
+            prev[1] + circles[i].amp * 50 * Math.sin(circles[i].freq * frame + circles[i].phase)
+        ];
+
+        ctx.beginPath();
+        ctx.arc(prev[0], prev[1], circles[i].amp * 50, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        prev = cur;
+    }
+    
 
     currentPoint.current = {
         x: cur[0],
