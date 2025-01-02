@@ -61,11 +61,11 @@ export function solver(points) {
   // Return json
   return solution.map((sol, index) => {
     let frequency = index - Math.floor((solution.length-1)/2)
-    console.log(atan2(sol[0].im, sol[0].re));
+    console.log(Math.atan2(sol[0].im, sol[0].re));
     return {
       freq: frequency,
       amp: Math.sqrt((sol[0].re)**2 + (sol[0].im)**2),  // Amplitude
-      phase: atan2(sol[0].im, sol[0].re),  // Phase angle
+      phase: Math.atan2(sol[0].im, sol[0].re),  // Phase angle
     };
   });
 }
