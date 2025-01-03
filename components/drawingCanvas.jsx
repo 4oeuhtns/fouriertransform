@@ -2,8 +2,8 @@
 import { useRef, useState, useEffect  } from 'react';
 
 export default function DrawingCanvas({ onPointsUpdate }){
-    const canvasRef = useRef(null); // Reference to the canvas element
-    const isDrawingRef = useRef(false); // Tracks if the user is drawing
+    const canvasRef = useRef(null); 
+    const isDrawingRef = useRef(false); 
     const [pointsDraw, setPointsDraw] = useState([]); // Stores the list of points to draw
     const lastUpdateRef = useRef(Date.now()); // Tracks the last time a point was added
     const [points, setPoints] = useState([]); // Stores the list of points to calculate with
@@ -45,7 +45,7 @@ export default function DrawingCanvas({ onPointsUpdate }){
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      setPointsDraw([]); // Clear points
+      setPointsDraw([]);
     };
 
     useEffect(() => {

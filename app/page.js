@@ -58,7 +58,6 @@ export default function Home() {
 
   const handlePointsUpdate = (updatedPoints) => {
     setPoints(updatedPoints);
-    // Perform calculations or other actions with `updatedPoints` here
   };
 
   
