@@ -34,9 +34,10 @@ export function solver(points) {
     }
     coefficients.push(temp);
   }
-
+  console.log(Array.isArray(points))
   // Convert points to complex numbers
   const complexPoints = points.map((point) => complex(point[0], point[1]));
+
 
   // Solve system
   const solution = lusolve(coefficients, complexPoints);
@@ -56,7 +57,6 @@ export function solver(points) {
       points.length
     }}it}+`;
   }
-  console.log(out.slice(0, -1));
   
   // Return json
   return solution
@@ -69,17 +69,6 @@ export function solver(points) {
     };
   })
   .sort((a, b) => b.amp - a.amp);
-    // console.log(jsonData)
-
-    // let sortedDataDescending = jsonData.slice().sort((a, b) => {
-    //   if (a.amp === null) return 1; // Place null amplitudes at the end
-    //   if (b.amp === null) return -1;
-    //   return b.amp - a.amp; // Descending order
-    // })
-    // console.log(sortedDataDescending);
-    // console.log(jsonData);
-
-  //   return{jsonData}
   
     
   // });
