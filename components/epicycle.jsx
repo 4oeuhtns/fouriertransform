@@ -1,7 +1,7 @@
 "use client";
 import { solver } from "@/components/algorithm";
 import Canvas from "@/components/canvas";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export default function Epicycle({ points, speed, ...props }) {
   let circles = solver(points);
@@ -10,6 +10,8 @@ export default function Epicycle({ points, speed, ...props }) {
   const currentPoint = useRef([]);
   const prevPoint = useRef([]);
 
+  useEffect(() => { circles = solver(points); currentPoint.current = []; prevPoint.current = [];}, [points]);
+  
   const drawCycles = (ctx, frame) => {
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
