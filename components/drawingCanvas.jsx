@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect  } from 'react';
 
-export default function DrawingCanvas({ onPointsUpdate, width, height }) {
+export default function DrawingCanvas({ onPointsUpdate }){
     const canvasRef = useRef(null); 
     const isDrawingRef = useRef(false); 
     const [pointsDraw, setPointsDraw] = useState([]); // Stores the list of points to draw
@@ -21,7 +21,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
       const now = Date.now();
       if (now - lastUpdateRef.current >= 100) {
         lastUpdateRef.current = now;
-        setPoints((prevPoints) => [...prevPoints, [offsetX - width/2, -offsetY + (height/2)]]);
+        setPoints((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
       }
       setPointsDraw((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
   
@@ -56,8 +56,8 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
       <div>
         <canvas
           ref={canvasRef}
-          width={width}
-          height={height}
+          width="600"
+          height="600"
           style={{ border: '1px solid black', cursor: 'crosshair' }}
           onMouseDown={startDrawing}
           onMouseMove={draw}

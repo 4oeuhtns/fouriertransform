@@ -65,15 +65,10 @@ export default function Home() {
 
 
   return (
-<div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
-<h1 className="text-5xl font-operatorItalic">Fourier Transforms</h1>
-      {/* <div className="w-[600px] h-[600px]"><Epicycle points={points} speed={0.001} width={600} height={600}/></div> */}
+    <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
+      <h1 className="text-5xl font-operatorItalic">Fourier Transforms</h1>
       <div><DrawingCanvas onPointsUpdate={handlePointsUpdate} width={400} height={600}></DrawingCanvas></div>
-      {/* <div>
-        <h3>Points Received in Parent:</h3>
-        <pre>{JSON.stringify(points, null, 2)}</pre>
-      </div> */}
-     
+      <div><Epicycle points={pointsTest} speed={0.1} width={600} height={600}/></div>
     </div>
   );
 }
