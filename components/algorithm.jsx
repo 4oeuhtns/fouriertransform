@@ -34,12 +34,14 @@ export function solver(points) {
     }
     coefficients.push(temp);
   }
-  console.log(Array.isArray(points))
+  
   // Convert points to complex numbers
   const complexPoints = points.map((point) => complex(point[0], point[1]));
+  console.log(complexPoints)
+  console.log(coefficients)
 
-
-  // Solve system
+  if (coefficients.length != 0){
+    // Solve system
   const solution = lusolve(coefficients, complexPoints);
 
   // Calculate starting point
@@ -69,6 +71,15 @@ export function solver(points) {
     };
   })
   .sort((a, b) => b.amp - a.amp);
+  }
+  else{
+    return {
+      freq: 0,
+      amp: 0,
+      phase: 0
+    }
+  }
+  
   
     
   // });
