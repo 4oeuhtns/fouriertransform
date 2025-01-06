@@ -18,7 +18,7 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.clearRect(-ctx.canvas.width / 2, -ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height);
     ctx.lineWidth = 5;
 
-    // Store previous point before calculating new one
+    // Store previous point before calculating new one 
     prevPoint.current = { ...currentPoint.current };
 
     ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
