@@ -10,6 +10,9 @@ export default function DrawingCanvas({ onPointsUpdate }){
   
     const startDrawing = (e) => {
       const { offsetX, offsetY } = e.nativeEvent;
+      if (!isDrawingRef.current){
+        clearCanvas()
+      }
       isDrawingRef.current = true;
       setPointsDraw([[offsetX, offsetY]]); // Start with the first point
     };
@@ -17,6 +20,8 @@ export default function DrawingCanvas({ onPointsUpdate }){
     const draw = (e) => {
       if (!isDrawingRef.current) return;
       const { offsetX, offsetY } = e.nativeEvent;
+
+      
   
       const now = Date.now();
       if (now - lastUpdateRef.current >= 100) {

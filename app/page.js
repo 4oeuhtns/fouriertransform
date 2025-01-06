@@ -56,9 +56,20 @@ export default function Home() {
     []
   );
 
+  function arrayEquals(a, b) {
+    return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => val === b[index]);
+}
+
+
   const handlePointsUpdate = (updatedPoints) => {
+    if (arrayEquals(updatedPoints,[])){
+      console.log("aaaaaaaaaaaaaaaaa")
+    }
     setPoints(updatedPoints);
-    console.log(JSON.stringify(points, null, 2))
+    // console.log(JSON.stringify(points, null, 2))
   };
 
   
