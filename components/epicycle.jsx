@@ -29,9 +29,6 @@ export default function Epicycle({ points, speed, ...props }) {
     let prev = [0, 0];
     let cur = [];
     for (let i = 0; i < circles.length; i++) {
-      console.log(cur)
-      console.log(prev)
-      console.log(currentPoint.current)
         cur = [
             prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
             prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
@@ -66,11 +63,22 @@ export default function Epicycle({ points, speed, ...props }) {
         y: cur[1]
       };
   };
+  const shouldClearPath = useRef(false);
+
+  useEffect(() => {
+    shouldClearPath.current = true;
+    console.log("clearing path");
+  }, [points]);
 
   const drawPath = (ctx, frame) => {
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
+
+    if (shouldClearPath.current) {
+      ctx.clearRect(-ctx.canvas.width / 2, -ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height);
+      shouldClearPath.current = false;
+    }
     
     ctx.lineWidth = 5;
     ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
