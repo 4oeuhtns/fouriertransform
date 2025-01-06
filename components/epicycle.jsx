@@ -28,8 +28,8 @@ export default function Epicycle({ points, speed, ...props }) {
     let cur = [];
     for (let i = 0; i < circles.length; i++) {
         cur = [
-            prev[0] + circles[i].amp * 50 * Math.cos(circles[i].freq * frame + circles[i].phase),
-            prev[1] + circles[i].amp * 50 * Math.sin(circles[i].freq * frame + circles[i].phase)
+            prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
+            prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
         ];
 
         ctx.moveTo(prev[0], prev[1]);
