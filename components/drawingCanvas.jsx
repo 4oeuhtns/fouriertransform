@@ -21,7 +21,7 @@ export default function DrawingCanvas({ onPointsUpdate }){
       const now = Date.now();
       if (now - lastUpdateRef.current >= 100) {
         lastUpdateRef.current = now;
-        setPoints((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
+        setPoints((prevPoints) => [...prevPoints, [offsetX, -1*offsetY]]);
       }
       setPointsDraw((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
   

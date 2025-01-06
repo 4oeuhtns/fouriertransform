@@ -27,6 +27,9 @@ export default function Epicycle({ points, speed, ...props }) {
     let prev = [0, 0];
     let cur = [];
     for (let i = 0; i < circles.length; i++) {
+      console.log(cur)
+      console.log(prev)
+      console.log(currentPoint.current)
         cur = [
             prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
             prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
@@ -44,12 +47,12 @@ export default function Epicycle({ points, speed, ...props }) {
     cur = [];
     for (let i = 0; i < circles.length; i++) {
         cur = [
-            prev[0] + circles[i].amp * 50 * Math.cos(circles[i].freq * frame + circles[i].phase),
-            prev[1] + circles[i].amp * 50 * Math.sin(circles[i].freq * frame + circles[i].phase)
+            prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
+            prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
         ];
 
         ctx.beginPath();
-        ctx.arc(prev[0], prev[1], circles[i].amp * 50, 0, 2 * Math.PI);
+        ctx.arc(prev[0], prev[1], circles[i].amp, 0, 2 * Math.PI);
         ctx.stroke();
 
         prev = cur;
@@ -78,8 +81,9 @@ export default function Epicycle({ points, speed, ...props }) {
   };
   return (
     <div className="relative">
-        <Canvas draw={drawCycles} speed={speed} {...props} className="absolute left-0 top-0 z-0"/>
-        <Canvas draw={drawPath} speed={speed} {...props} className="absolute left-0 top-0 z-1"/>
+        <Canvas draw={drawPath} speed={speed} {...props} className="absolute left-0 top-0 z-0"/>
+        <Canvas draw={drawCycles} speed={speed} {...props} className="absolute left-0 top-0 z-1"/>
+        
     </div>
   
 

@@ -68,7 +68,7 @@ export default function Home() {
     <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
       <h1 className="text-5xl font-operatorItalic">Fourier Transforms</h1>
       <div><DrawingCanvas onPointsUpdate={handlePointsUpdate} width={400} height={600}></DrawingCanvas></div>
-      <div><Epicycle points={pointsTest} speed={0.1} width={600} height={600}/></div>
+      <div><Epicycle points={points} speed={0.1} width={2000} height={2000}/></div>
     </div>
   );
 }
