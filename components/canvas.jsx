@@ -16,6 +16,7 @@ export default function Canvas({ speed, draw, ...props }) {
     // draws each frame according to frame rate by requestAnimationFrame
     const render = () => {
       frame += speed;
+      if (frame >= (2 * Math.PI)) frame = 0;
       draw(ctx, frame);
       animationFrameId = window.requestAnimationFrame(render);
     };
