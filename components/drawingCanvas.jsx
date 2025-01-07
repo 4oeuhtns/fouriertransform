@@ -97,7 +97,7 @@ export default function DrawingCanvas({ onPointsUpdate }) {
         onTouchMove={draw}
         onTouchEnd={stopDrawing}
       />
-      <button onClick={clearCanvas}>Clear</button>
+      {/* <button onClick={clearCanvas}>Clear</button> */}
     </div>
   );
 }
