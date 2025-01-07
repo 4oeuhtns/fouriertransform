@@ -28,7 +28,7 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.beginPath();
     let prev = [0, 0];
     let cur = [];
-    for (let i = 0; i < circles.length; i++) {
+    for (let i = 1; i < circles.length; i++) {
         cur = [
             prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
             prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
@@ -44,7 +44,7 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.strokeStyle = "rgba(0, 255, 0, 0.3)";
     prev = [0, 0];
     cur = [];
-    for (let i = 0; i < circles.length; i++) {
+    for (let i = 1; i < circles.length; i++) {
         cur = [
             prev[0] + circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
             prev[1] + circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase)
@@ -67,7 +67,6 @@ export default function Epicycle({ points, speed, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-    console.log("clearing path");
   }, [points]);
 
   const drawPath = (ctx, frame) => {
