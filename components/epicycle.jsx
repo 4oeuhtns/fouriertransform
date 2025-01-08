@@ -6,7 +6,6 @@ import { useRef, useEffect } from "react";
 export default function Epicycle({ points, speed, ...props }) {
   console.log(points);
   let circles = solver(points);
-  //console.log(JSON.stringify(circles));
 
   const currentPoint = useRef([]);
   const prevPoint = useRef([]);
@@ -46,7 +45,7 @@ export default function Epicycle({ points, speed, ...props }) {
           circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase),
       ];
 
-      if (i > 0) {
+      if (!(i === 0 && circles[i].freq === 0)) {
         ctx.moveTo(prev[0], prev[1]);
         ctx.lineTo(cur[0], cur[1]);
       }
@@ -66,7 +65,7 @@ export default function Epicycle({ points, speed, ...props }) {
           circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase),
       ];
 
-      if (i > 0) {
+      if (!(i === 0 && circles[i].freq === 0)) {
         ctx.beginPath();
         ctx.arc(prev[0], prev[1], circles[i].amp, 0, 2 * Math.PI);
         ctx.stroke();
