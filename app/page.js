@@ -79,13 +79,14 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
-      <div>
+        <Epicycle points={points} speed={0.01} width={width} height={height} className="absolute left-0 top-0" />
+        <div className="relative">
         <DrawingCanvas
           onPointsUpdate={handlePointsUpdate}
           width={width}
           height={height}
+          className="absolute left-0 top-0  z-50"
         />
-        <Epicycle points={points} speed={0.01} width={width} height={height} />
       </div>
     </div>
   );

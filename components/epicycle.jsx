@@ -111,7 +111,7 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.stroke();
   };
   return (
-    <div className="relative">
+    <div>
       <Canvas
         draw={drawPath}
         speed={speed}
