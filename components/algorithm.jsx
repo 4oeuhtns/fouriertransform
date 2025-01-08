@@ -37,8 +37,6 @@ export function solver(points) {
   
   // Convert points to complex numbers
   const complexPoints = points.map((point) => complex(point[0], point[1]));
-  console.log(complexPoints)
-  console.log(coefficients)
 
   if (coefficients.length != 0){
     // Solve system
