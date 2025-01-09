@@ -101,7 +101,7 @@ export default function Epicycle({ points, speed, ...props }) {
     }
 
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.005)';
+    ctx.fillStyle = 'rgba(12, 22, 24, 0.005)';
     ctx.fillRect(-ctx.canvas.width / 2,
       -ctx.canvas.height / 2, ctx.canvas.width,
       ctx.canvas.height);
