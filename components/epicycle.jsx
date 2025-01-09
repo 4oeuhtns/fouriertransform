@@ -100,9 +100,17 @@ export default function Epicycle({ points, speed, ...props }) {
       shouldClearPath.current = false;
     }
 
+
+    ctx.fillStyle = 'rgba(0, 0, 0,0.007)';
+    ctx.fillRect(-ctx.canvas.width / 2,
+      -ctx.canvas.height / 2, ctx.canvas.width,
+      ctx.canvas.height);
+
     ctx.lineWidth = 5;
     ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
 
+
+    
     // Draw path between previous and current points
     ctx.beginPath();
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
