@@ -105,13 +105,11 @@ export default function Epicycle({ points, speed, ...props }) {
       shouldClearPath.current = false;
     }
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.005)";
-    ctx.fillRect(
-      -ctx.canvas.width / 2,
-      -ctx.canvas.height / 2,
-      ctx.canvas.width,
-      ctx.canvas.height
-    );
+
+    ctx.fillStyle = 'rgba(12, 22, 24, 0.005)';
+    ctx.fillRect(-ctx.canvas.width / 2,
+      -ctx.canvas.height / 2, ctx.canvas.width,
+      ctx.canvas.height);
 
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
