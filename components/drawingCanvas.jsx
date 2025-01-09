@@ -57,6 +57,10 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
 
     const ctx = canvasRef.current.getContext("2d");
     const lastPoint = pointsDraw[pointsDraw.length - 1];
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgb(244, 255, 248)";
     if (lastPoint) {
       ctx.beginPath();
       ctx.moveTo(lastPoint[0], lastPoint[1]);
@@ -88,7 +92,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
         ref={canvasRef}
         width={width}
         height={height}
-        style={{ border: "1px solid black", cursor: "crosshair" }}
+        style={{ cursor: "crosshair" }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
@@ -97,7 +101,6 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
         onTouchMove={draw}
         onTouchEnd={stopDrawing}
       />
-      {/* <button onClick={clearCanvas}>Clear</button> */}
     </div>
   );
 }

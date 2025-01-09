@@ -78,9 +78,15 @@ export default function Home() {
   const { width, height } = useWindowDimensions();
 
   return (
-    <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
-        <Epicycle points={points} speed={0.01} width={width} height={height} className="absolute left-0 top-0" />
-        <div className="relative">
+    <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic bg-[#0C1618]">
+      <Epicycle
+        points={points}
+        speed={0.01}
+        width={width}
+        height={height}
+        className="absolute left-0 top-0"
+      />
+      <div className="relative">
         <DrawingCanvas
           onPointsUpdate={handlePointsUpdate}
           width={width}

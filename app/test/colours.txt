@@ -1,0 +1,4 @@
+#0C1618 - black
+#F4FFF8 - white
+#D11149 - red
+#1A8FE3 - blue
