@@ -101,13 +101,13 @@ export default function Epicycle({ points, speed, ...props }) {
     }
 
 
-    ctx.fillStyle = 'rgba(0, 0, 0,0.007)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.005)';
     ctx.fillRect(-ctx.canvas.width / 2,
       -ctx.canvas.height / 2, ctx.canvas.width,
       ctx.canvas.height);
 
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+    ctx.strokeStyle = "rgba(255, 0, 0, 1)";
 
 
     

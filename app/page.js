@@ -91,7 +91,7 @@ export default function Home() {
           onPointsUpdate={handlePointsUpdate}
           width={width}
           height={height}
-          className="absolute left-0 top-0  z-50"
+          className="absolute left-0 top-0 z-50"
         />
       </div>
     </div>

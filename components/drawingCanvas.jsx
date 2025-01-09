@@ -60,7 +60,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgb(244, 255, 248)";
+    ctx.strokeStyle = "rgba(244, 255, 248, 0.5)";
     if (lastPoint) {
       ctx.beginPath();
       ctx.moveTo(lastPoint[0], lastPoint[1]);
@@ -84,6 +84,9 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     } 
     isDrawingRef.current = false;
     console.log(JSON.stringify(points))
+
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
   };
 
   const clearCanvas = () => {
