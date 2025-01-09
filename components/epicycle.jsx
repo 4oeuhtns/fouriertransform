@@ -27,12 +27,14 @@ export default function Epicycle({ points, speed, ...props }) {
       ctx.canvas.width,
       ctx.canvas.height
     );
-    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 2;
 
     // Store previous point before calculating new one
     prevPoint.current = { ...currentPoint.current };
 
-    ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
+    ctx.strokeStyle = "rgb(26,143,227)";
     // Draw vector
     ctx.beginPath();
     let prev = [0, 0];
@@ -54,7 +56,7 @@ export default function Epicycle({ points, speed, ...props }) {
     }
     ctx.stroke();
 
-    ctx.strokeStyle = "rgba(0, 255, 0, 0.3)";
+    ctx.strokeStyle = "rgba(150,255,50,0.3)";
     prev = [0, 0];
     cur = [];
     for (let i = 0; i < circles.length; i++) {
@@ -85,7 +87,10 @@ export default function Epicycle({ points, speed, ...props }) {
     shouldClearPath.current = true;
   }, [points]);
 
+  const hue = useRef(0);
+
   const drawPath = (ctx, frame) => {
+    hue.current += 0.1;
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
@@ -100,17 +105,19 @@ export default function Epicycle({ points, speed, ...props }) {
       shouldClearPath.current = false;
     }
 
+    ctx.fillStyle = "rgba(0, 0, 0, 0.005)";
+    ctx.fillRect(
+      -ctx.canvas.width / 2,
+      -ctx.canvas.height / 2,
+      ctx.canvas.width,
+      ctx.canvas.height
+    );
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.005)';
-    ctx.fillRect(-ctx.canvas.width / 2,
-      -ctx.canvas.height / 2, ctx.canvas.width,
-      ctx.canvas.height);
-
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "rgba(255, 0, 0, 1)";
+    ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
 
-
-    
     // Draw path between previous and current points
     ctx.beginPath();
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
