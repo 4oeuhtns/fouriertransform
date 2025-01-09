@@ -51,7 +51,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     const now = Date.now();
     if (now - lastUpdateRef.current >= 100) {
       lastUpdateRef.current = now;
-      setPoints((prevPoints) => [...prevPoints, [offsetX - width/2, -(offsetY - height/2)]]);
+      setPoints((prevPoints) => [...prevPoints, [offsetX - width / 2, -(offsetY - height / 2)]]);
     }
     setPointsDraw((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
 
@@ -70,8 +70,20 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
   };
 
   const stopDrawing = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+    if (pointsDraw.length > 1) { 
+      const firstPoint = pointsDraw[0]; 
+      const lastPoint = pointsDraw[pointsDraw.length - 1]; 
+      const distance = Math.sqrt(Math.pow(lastPoint[0] - firstPoint[0], 2) + Math.pow(lastPoint[1] - firstPoint[1], 2)); 
+      const numIntermediatePoints = Math.floor(distance / 100); 
+      for (let i = numIntermediatePoints; i >= 1; i--) { 
+        const t = i / (numIntermediatePoints + 1); 
+        const intermediatePoint = [(1 - t) * firstPoint[0] + t * lastPoint[0], (1 - t) * firstPoint[1] + t * lastPoint[1],]; 
+        setPoints((prevPoints) => [...prevPoints, [intermediatePoint[0] - width / 2, -(intermediatePoint[1] - height / 2)],]); 
+      } 
+    } 
     isDrawingRef.current = false;
+    console.log(JSON.stringify(points))
   };
 
   const clearCanvas = () => {
