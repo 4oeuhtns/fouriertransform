@@ -7,12 +7,12 @@ import { useState } from "react";
 import "@/components/slider.css";
 
 export default function Sandbox() {
-  const [value, setValue] = useState(50); // Initial value of the slider
+  const [speed, setSpeed] = useState(0.01);
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setSpeed(parseFloat(event.target.value));
   };
-  
+
   const [points, setPoints] = useState([]);
 
   const handlePointsUpdate = (updatedPoints) => {
@@ -35,7 +35,7 @@ export default function Sandbox() {
 
   return (
     <div className="flex h-screen w-full">
-      <aside className="w-72 flex-shrink-0 m-5 text-[#F4FFF8] font-mono">
+      <aside className="w-72 flex-shrink-0 text-[#F4FFF8] font-mono">
         <h1 className="text-4xl font-bold">Fourier Transforms</h1>
         <p className="text-l mt-5">
           Any path drawn on the canvas is approximated using a sequence of
@@ -44,15 +44,23 @@ export default function Sandbox() {
           recreates the original path.
         </p>
 
-        <div className="p-2 flex bg-[#0F1A19] justify-center items-center rounded-full border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]">
-          <input
-            type="range"
-            min="0"
-            max="500"
-            value={value}
-            onChange={handleChange}
-            className="w-full"
-          />
+        <div className="bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
+          <div className="flex justify-between">
+            <h2 className="text-xl font-bold">Speed</h2>
+            <p className="text-xl font">{speed}</p>
+          </div>
+
+          <div className="p-2 flex bg-[#0F1A19] justify-center items-center rounded-full border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]">
+            <input
+              type="range"
+              min="0.001"
+              max="0.02"
+              step="0.001"
+              value={speed}
+              onChange={handleChange}
+              className="w-full"
+            />
+          </div>
         </div>
       </aside>
 
@@ -63,7 +71,7 @@ export default function Sandbox() {
         >
           <Epicycle
             points={points}
-            speed={0.01}
+            speed={speed}
             width={width}
             height={height}
             colour="rainbow"

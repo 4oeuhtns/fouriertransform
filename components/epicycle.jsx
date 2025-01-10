@@ -85,7 +85,7 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-  }, [points]);
+  }, [points, speed]);
 
   const hue = useRef(0);
 
@@ -94,16 +94,6 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
-
-    if (shouldClearPath.current) {
-      ctx.clearRect(
-        -ctx.canvas.width / 2,
-        -ctx.canvas.height / 2,
-        ctx.canvas.width,
-        ctx.canvas.height
-      );
-      shouldClearPath.current = false;
-    }
 
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -130,6 +120,16 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
     ctx.lineTo(currentPoint.current.x, currentPoint.current.y);
     ctx.stroke();
+
+    if (shouldClearPath.current) {
+      ctx.clearRect(
+        -ctx.canvas.width / 2,
+        -ctx.canvas.height / 2,
+        ctx.canvas.width,
+        ctx.canvas.height
+      );
+      shouldClearPath.current = false;
+    }
   };
   return (
     <div>
