@@ -61,6 +61,10 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.strokeStyle = "rgba(244, 255, 248, 0.5)";
+    ctx.shadowColor = `rgba(244, 255, 248, 1)`;
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
     if (lastPoint) {
       ctx.beginPath();
       ctx.moveTo(lastPoint[0], lastPoint[1]);
