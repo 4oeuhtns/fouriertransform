@@ -90,7 +90,7 @@ export default function Epicycle({ points, speed, ...props }) {
   const hue = useRef(0);
 
   const drawPath = (ctx, frame) => {
-    hue.current += 0.1;
+    hue.current += 0.2;
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically

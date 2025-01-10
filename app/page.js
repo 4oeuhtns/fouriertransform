@@ -78,7 +78,7 @@ export default function Home() {
   const { width, height } = useWindowDimensions();
 
   return (
-    <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic bg-[#0C1618]">
+    <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic bg-[#0F1A19]">
       <Epicycle
         points={points}
         speed={0.01}
@@ -94,6 +94,7 @@ export default function Home() {
           className="absolute left-0 top-0 z-50"
         />
       </div>
+      <h1 className="text-5xl font-mono font-bold text-white absolute">Fourier Series</h1>
     </div>
   );
 }
