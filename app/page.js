@@ -98,7 +98,8 @@ export default function Home() {
   else if (showMainApp === 1) {
     return (
       <div>
-        <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic bg-[#0F1A19]">
+        <div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic bg-[#0F1A19] bg-[length:30px_30px]
+         bg-[linear-gradient(to_right,#293b39_1px,transparent_1px),linear-gradient(to_bottom,#293b39_1px,transparent_1px)]">
           <Epicycle
             points={points}
             speed={0.01}
