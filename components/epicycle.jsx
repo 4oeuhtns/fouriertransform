@@ -3,7 +3,7 @@ import { solver } from "@/components/algorithm";
 import Canvas from "@/components/canvas";
 import { useRef, useEffect } from "react";
 
-export default function Epicycle({ points, speed, ...props }) {
+export default function Epicycle({ points, speed, colour, glow, ...props }) {
   console.log(points);
   let circles = solver(points);
 
@@ -105,22 +105,27 @@ export default function Epicycle({ points, speed, ...props }) {
       shouldClearPath.current = false;
     }
 
-    // ctx.fillStyle = "rgba(12, 22, 24, 0.005)";
-    // ctx.fillRect(
-    //   -ctx.canvas.width / 2,
-    //   -ctx.canvas.height / 2,
-    //   ctx.canvas.width,
-    //   ctx.canvas.height
-    // );
-
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.lineWidth = 5;
-    ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
-    ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
-    ctx.shadowBlur = 15;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
+    if (colour === "rainbow") {
+      ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
+    } else {
+      ctx.strokeStyle = colour;
+    }
+    
+    if (glow) {
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      if (colour === "rainbow") {
+        ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
+      } else {
+        ctx.shadowColor = `${colour}75`;
+      }
+    }
+    
+    
 
     // Draw path between previous and current points
     ctx.beginPath();
