@@ -47,7 +47,12 @@ export default function Home() {
 
 
   let pointsFourier=
-  [ [0, 1000], [100, 1000], [200, 900], [200, 0], [400, 0], [400, 900], [500, 1000], [600, 1000], [600, 0], [700, 0], [700, -100], [500, -100], [500, -900], [400, -1000], [300, -1000], [300, -900], [100, -900], [100, -1000], [0, -1000], [0, -900] ];  function arrayEquals(a, b) {
+  [ [0, 1000], [100, 1000], [200, 900], [200, 0], [400, 0], [400, 900], [500, 1000], [600, 1000], [600, 0], [700, 0], [700, -100], [500, -100], [500, -900], [400, -1000], [300, -1000], [300, -900], [100, -900], [100, -1000], [0, -1000], [0, -900] ];  
+  
+
+  const [points, setPoints] = useState([]);
+
+  function arrayEquals(a, b) {
     return (
       Array.isArray(a) &&
       Array.isArray(b) &&
@@ -59,6 +64,7 @@ export default function Home() {
   const handlePointsUpdate = (updatedPoints) => {
     // do we need
     if (arrayEquals(updatedPoints, [])) {
+      console.log("aaaaaaaaaaaaaaaaa");
     }
 
     setPoints(updatedPoints);
