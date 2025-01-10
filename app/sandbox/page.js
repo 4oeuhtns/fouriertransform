@@ -4,9 +4,15 @@ import Epicycle from "@/components/epicycle";
 import DrawingCanvas from "@/components/drawingCanvas";
 import useWindowDimensions from "@/components/windowDimensions";
 import { useState } from "react";
-import Slider from '@mui/material/Slider';
+import "@/components/slider.css";
 
 export default function Sandbox() {
+  const [value, setValue] = useState(50); // Initial value of the slider
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+  
   const [points, setPoints] = useState([]);
 
   const handlePointsUpdate = (updatedPoints) => {
@@ -37,8 +43,17 @@ export default function Sandbox() {
           different radius, phase, and frequency, which, when combined,
           recreates the original path.
         </p>
-        <Slider/>
-        {/* Sidebar content here */}
+
+        <div className="p-2 flex bg-[#0F1A19] justify-center items-center rounded-full border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]">
+          <input
+            type="range"
+            min="0"
+            max="500"
+            value={value}
+            onChange={handleChange}
+            className="w-full"
+          />
+        </div>
       </aside>
 
       <main className="relative flex-grow">
