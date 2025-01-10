@@ -64,9 +64,7 @@ export default function Home() {
   const handlePointsUpdate = (updatedPoints) => {
     // do we need
     if (arrayEquals(updatedPoints, [])) {
-      console.log("aaaaaaaaaaaaaaaaa");
     }
-
     setPoints(updatedPoints);
   };
 
