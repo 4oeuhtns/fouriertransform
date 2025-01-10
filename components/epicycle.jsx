@@ -125,8 +125,6 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
       }
     }
     
-    
-
     // Draw path between previous and current points
     ctx.beginPath();
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);

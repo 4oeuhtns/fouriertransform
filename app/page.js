@@ -103,6 +103,8 @@ export default function Home() {
             speed={0.01}
             width={width}
             height={height}
+            colour={"rainbow"}
+            glow={true}
             className="absolute left-0 top-0"
           />
           <div className="relative">
