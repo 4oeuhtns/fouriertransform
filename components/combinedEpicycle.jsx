@@ -102,22 +102,24 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
 
-    if (clearing.current) {
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.lineWidth = 6;
-    } else {
-      ctx.globalCompositeOperation = "source-over";
-      ctx.lineWidth = 3;
-    }
+    
 
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    
+    ctx.lineWidth = 3;
+
     ctx.strokeStyle = colour;
     ctx.shadowBlur = 2;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = `${colour}50`;
+
+    if (clearing.current) {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineWidth = 6;
+    } else {
+      ctx.globalCompositeOperation = "source-over";
+    }
 
     for (let i = 0; i < curPoint.current.length; i++) {
       if (prevPoint.current[i] && curPoint.current[i]) {
