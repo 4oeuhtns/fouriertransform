@@ -3,12 +3,21 @@
 import Epicycle from "@/components/epicycle";
 import DrawingCanvas from "@/components/drawingCanvas";
 import useWindowDimensions from "@/components/windowDimensions";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
 import "@/components/styles.css";
 import "@/components/colorPicker.css";
 
 export default function Sandbox() {
+  const sidebarRef = useRef(null);
+  const [sidebarWidth, setSidebarWidth] = useState(0);
+
+  useEffect(() => {
+    if (sidebarRef.current) {
+      setSidebarWidth(sidebarRef.current.offsetWidth);
+    }
+  }, []);
+
   const [speed, setSpeed] = useState(0.01);
   const [colour, setColour] = useState("Rainbow");
   const [glow, setGlow] = useState(true);
@@ -39,8 +48,7 @@ export default function Sandbox() {
 
   return (
     <div className="flex h-screen w-full">
-      <aside className=" w-80 flex-shrink-0 text-[#F4FFF8] font-mono p-5 flex flex-col justify-center">
-        <div>
+      <aside ref={sidebarRef} className=" w-80 flex-shrink-0 text-[#F4FFF8] font-mono p-5 h-screen overflow-y-auto">
           <h1 className="text-4xl font-bold">Fourier Transforms</h1>
           <p className="text-l mt-2 text-[#F4FFF8] text-opacity-75">
             Any path drawn on the canvas is approximated using a sequence of
@@ -123,7 +131,6 @@ export default function Sandbox() {
               Turn glow on or off.
             </p>
           </div>
-        </div>
       </aside>
 
       <main className="relative flex-grow">
@@ -134,7 +141,7 @@ export default function Sandbox() {
           <Epicycle
             points={points}
             speed={speed}
-            width={width}
+            width={width - sidebarWidth}
             height={height}
             colour={colour}
             glow={glow}
@@ -143,7 +150,7 @@ export default function Sandbox() {
           <div className="relative">
             <DrawingCanvas
               onPointsUpdate={handlePointsUpdate}
-              width={width}
+              width={width - sidebarWidth}
               height={height}
               className="absolute left-0 top-0 z-50"
             />

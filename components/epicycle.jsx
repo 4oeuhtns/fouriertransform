@@ -85,7 +85,6 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-    console.log(glow);
   }, [points, speed, colour, glow]);
 
   const hue = useRef(0);
@@ -106,7 +105,6 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     }
     
     if (glow === true) {
-      console.log(glow);
       ctx.shadowBlur = 15;
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
