@@ -34,6 +34,14 @@ input[type="range"]:focus::-webkit-slider-thumb {
   outline-offset: 0.125rem;
 }
 
+input[type="range"]:hover::-webkit-slider-thumb {
+  transition: all 0.1s;
+  background-color: #f4fff8;
+  border: 1px solid #293b39;
+  outline: 2px solid #293b39;
+  outline-offset: 0.125rem;
+}
+
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
   border: none; /*Removes extra border that FF applies*/
@@ -47,6 +55,14 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[type="range"]:focus::-moz-range-thumb {
+  transition: all 0.1s;
+  background-color: #f4fff8;
+  border: 1px solid #293b39;
+  outline: 2px solid #293b39;
+  outline-offset: 0.125rem;
+}
+
+input[type="range"]:hover::-moz-range-thumb {
   transition: all 0.1s;
   background-color: #f4fff8;
   border: 1px solid #293b39;
