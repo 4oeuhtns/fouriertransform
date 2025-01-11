@@ -13,7 +13,7 @@ input[type="range"]:focus {
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   -webkit-appearance: none; /* Override default look */
   appearance: none;
 
@@ -43,7 +43,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   border: none; /*Removes extra border that FF applies*/
   border-radius: 0; /*Removes default border-radius that FF applies*/
 
@@ -70,7 +70,7 @@ input[type="range"]:hover::-moz-range-thumb {
 
 
 .rainbow {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .rainbow:hover {
@@ -150,4 +150,29 @@ input:checked + .toggle-slider:before {
   background-color: #f4fff8;
   border: 1px solid #293b39;
   outline: 2px solid #293b39;
+  outline-offset: 0.125rem;
+  box-shadow: 
+    inset -1px -1px 2px rgba(244, 255, 248, 0.1),
+    inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: #0F1A19;
+}
+
+input + .toggle-slider {
+  transition: all 0.3s ease-in-out;
+}
+
+input + .toggle-slider:hover:before {
+  background-color: #f4fff8;
+  border: 1px solid #293b39;
+  outline: 2px solid #293b39;
+  outline-offset: 0.125rem;
+  box-shadow: 
+    inset -1px -1px 2px rgba(244, 255, 248, 0.1),
+    inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: #0F1A19;
+}
+
+/* Disable hover animation when checked */
+input:checked + .toggle-slider:hover {
+  background-color: #0F1A19;
 }
