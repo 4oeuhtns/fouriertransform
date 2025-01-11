@@ -1,35 +1,21 @@
 "use client";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Epicycle from "@/components/epicycle";
-import DrawingCanvas from "@/components/drawingCanvas";
-import { useState } from "react";
 
-export default function Test() {
-    let points = [
-        [
-          -119,
-          -105
-        ],
-        [
-          -119,
-          -105
-        ],
-        [
-          -18,
-          5
-        ],
-        [
-          82,
-          98
-        ]
-      ]
+import React, { useState } from "react";
+import "@/components/styles.css";
+
+function Slider() {
 
   return (
-<div className="h-screen w-full flex flex-col  items-center text-5xl font-operatorItalic">
-<h1 className="text-5xl font-operatorItalic">Fourier Transforms</h1>
-      <div className="w-[600px] h-[600px]"><Epicycle points={points} speed={0.001} width={1000} height={1000}/></div>
-     
-    </div>
+    <button 
+      className={`
+        rainbow-animation
+        p-2 rounded-lg border-2 border-[#293b39]
+        shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]
+      `}
+    >
+      Rainbow
+    </button>
   );
 }
+
+export default Slider;

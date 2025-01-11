@@ -3,7 +3,7 @@ import { solver } from "@/components/algorithm";
 import Canvas from "@/components/canvas";
 import { useRef, useEffect } from "react";
 
-export default function Epicycle({ points, speed, ...props }) {
+export default function Epicycle({ points, speed, colour, glow, ...props }) {
   console.log(points);
   let circles = solver(points);
 
@@ -85,7 +85,7 @@ export default function Epicycle({ points, speed, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-  }, [points]);
+  }, [points, speed, colour, glow]);
 
   const hue = useRef(0);
 
@@ -94,6 +94,34 @@ export default function Epicycle({ points, speed, ...props }) {
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 5;
+    if (colour === "Rainbow") {
+      ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
+    } else {
+      ctx.strokeStyle = colour;
+    }
+    
+    if (glow === true) {
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      if (colour === "Rainbow") {
+        ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
+      } else {
+        ctx.shadowColor = `${colour}75`;
+      }
+    } else {
+      ctx.shadowBlur = 0;
+    }
+    
+    // Draw path between previous and current points
+    ctx.beginPath();
+    ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
+    ctx.lineTo(currentPoint.current.x, currentPoint.current.y);
+    ctx.stroke();
 
     if (shouldClearPath.current) {
       ctx.clearRect(
@@ -104,29 +132,6 @@ export default function Epicycle({ points, speed, ...props }) {
       );
       shouldClearPath.current = false;
     }
-
-    // ctx.fillStyle = "rgba(12, 22, 24, 0.005)";
-    // ctx.fillRect(
-    //   -ctx.canvas.width / 2,
-    //   -ctx.canvas.height / 2,
-    //   ctx.canvas.width,
-    //   ctx.canvas.height
-    // );
-
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
-    ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
-    ctx.shadowBlur = 15;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-
-    // Draw path between previous and current points
-    ctx.beginPath();
-    ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
-    ctx.lineTo(currentPoint.current.x, currentPoint.current.y);
-    ctx.stroke();
   };
   return (
     <div>
