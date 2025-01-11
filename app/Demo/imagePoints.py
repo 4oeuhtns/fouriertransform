@@ -2,15 +2,15 @@
 # the contours detected in an image. 
 import numpy as np 
 import cv2 
+import math
 
 # Reading image 
 font = cv2.FONT_HERSHEY_COMPLEX 
-img2 = cv2.imread('./Images/fourier.png', cv2.IMREAD_COLOR) 
+img2 = cv2.imread('fourier.png', cv2.IMREAD_COLOR) 
 
 # Reading same image in another 
 # variable and converting to gray scale. 
-img = cv2.imread('./Images/fourier.png', cv2.IMREAD_GRAYSCALE) 
-cv2.imshow('image', img)
+img = cv2.imread('fourier.png', cv2.IMREAD_GRAYSCALE) 
 
 # Converting image to a binary image 
 # ( black and white only image). 
@@ -34,6 +34,18 @@ def add_points(coords, distance=10):
             new_point = start + j * step 
             new_coords.append(list(map(int,new_point))) 
     new_coords.append(coords[-1]) 
+
+    if len(new_coords) > 1: 
+        firstPoint = new_coords[0] 
+        lastPoint = new_coords[-1] 
+        distance = math.sqrt((lastPoint[0] - firstPoint[0]) ** 2 + (lastPoint[1] - firstPoint[1]) ** 2) 
+        numIntermediatePoints = 4
+        for i in range(numIntermediatePoints, 0, -1): 
+            t = i / (numIntermediatePoints + 1) 
+            intermediatePoint = [ int((1 - t) * firstPoint[0] + t * lastPoint[0]), int((1 - t) * firstPoint[1] + t * lastPoint[1]) ] 
+            newPoint = [intermediatePoint[0], (intermediatePoint[1])] 
+            new_coords.append(newPoint) # Output the modified new_coords print(new_coords)
+
     return new_coords
 
 a=[]
@@ -72,14 +84,12 @@ for cnt in contours :
 
     a.append(add_points(arr))
 
-print(a)
+
+f = open("points.txt", "w")
+f.write(str(a))
+f.close()
 
 
-
-
-
-# Showing the final image. 
-cv2.imshow('image2', img2) 
 
 # Exiting the window if 'q' is pressed on the keyboard. 
 if cv2.waitKey(0) & 0xFF == ord('q'): 
