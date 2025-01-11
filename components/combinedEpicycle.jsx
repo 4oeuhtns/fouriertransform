@@ -9,10 +9,8 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     circles[i] = solver(points[i]);
   }
 
-  const curPoint = useRef([
-  ]);
-  const prevPoint = useRef([
-  ]);
+  const curPoint = useRef([]);
+  const prevPoint = useRef([]);
 
   const drawCycles = (ctx, frame) => {
     ctx.resetTransform();
@@ -61,7 +59,6 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
       };
     }
 
-    console.log(prevPoint.current);
     for (let j = 0; j < circles.length; j++) {
       let prev = [0, 0];
       let cur = [];
@@ -95,14 +92,27 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     shouldClearPath.current = true;
   }, [props]);
 
+  const clearing = useRef(false);
+
   const drawPath = (ctx, frame) => {
+    if (frame === 0) {
+      clearing.current = !clearing.current;
+    }
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.scale(1, -1); // Flip vertically
 
+    if (clearing.current) {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineWidth = 6;
+    } else {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.lineWidth = 3;
+    }
+
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.lineWidth = 3;
+    
     ctx.strokeStyle = colour;
     ctx.shadowBlur = 2;
     ctx.shadowOffsetX = 0;
