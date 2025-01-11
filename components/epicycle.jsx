@@ -85,7 +85,8 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-  }, [points, speed]);
+    console.log(glow);
+  }, [points, speed, colour, glow]);
 
   const hue = useRef(0);
 
@@ -98,21 +99,24 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.lineWidth = 5;
-    if (colour === "rainbow") {
+    if (colour === "Rainbow") {
       ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
     } else {
       ctx.strokeStyle = colour;
     }
     
-    if (glow) {
+    if (glow === true) {
+      console.log(glow);
       ctx.shadowBlur = 15;
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
-      if (colour === "rainbow") {
+      if (colour === "Rainbow") {
         ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
       } else {
         ctx.shadowColor = `${colour}75`;
       }
+    } else {
+      ctx.shadowBlur = 0;
     }
     
     // Draw path between previous and current points
