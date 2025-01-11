@@ -105,7 +105,7 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     }
     
     if (glow === true) {
-      ctx.shadowBlur = 15;
+      ctx.shadowBlur = 5;
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
       if (colour === "Rainbow") {
@@ -122,6 +122,7 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
     ctx.lineTo(currentPoint.current.x, currentPoint.current.y);
     ctx.stroke();
+    
 
     if (shouldClearPath.current) {
       ctx.clearRect(
