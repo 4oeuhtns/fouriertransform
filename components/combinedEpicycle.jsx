@@ -1,0 +1,144 @@
+"use client";
+import { solver } from "@/components/algorithm";
+import Canvas from "@/components/canvas";
+import { useRef, useEffect } from "react";
+
+export default function CombinedEpicycle({ points, speed, colour, ...props }) {
+  let circles = [];
+  for (let i = 0; i < points.length; i++) {
+    circles[i] = solver(points[i]);
+  }
+
+  const curPoint = useRef([
+  ]);
+  const prevPoint = useRef([
+  ]);
+
+  const drawCycles = (ctx, frame) => {
+    ctx.resetTransform();
+    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+    ctx.scale(1, -1); // Flip vertically
+
+    ctx.clearRect(
+      -ctx.canvas.width / 2,
+      -ctx.canvas.height / 2,
+      ctx.canvas.width,
+      ctx.canvas.height
+    );
+
+    prevPoint.current = { ...curPoint.current };
+    for (let j = 0; j < circles.length; j++) {
+      // Draw vector
+      ctx.beginPath();
+      let prev = [0, 0];
+      let cur = [];
+
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgb(26,143,227)";
+      for (let i = 0; i < circles[j].length; i++) {
+        cur = [
+          prev[0] +
+            circles[j][i].amp *
+              Math.cos(circles[j][i].freq * frame + circles[j][i].phase),
+          prev[1] +
+            circles[j][i].amp *
+              Math.sin(circles[j][i].freq * frame + circles[j][i].phase),
+        ];
+
+        if (!(i === 0 && circles[j][i].freq === 0)) {
+          ctx.moveTo(prev[0], prev[1]);
+          ctx.lineTo(cur[0], cur[1]);
+        }
+        prev = cur;
+      }
+      ctx.stroke();
+
+      curPoint.current[j] = {
+        x: cur[0],
+        y: cur[1],
+      };
+    }
+
+    console.log(prevPoint.current);
+    for (let j = 0; j < circles.length; j++) {
+      let prev = [0, 0];
+      let cur = [];
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(150,255,50,0.3)";
+      for (let i = 0; i < circles[j].length; i++) {
+        cur = [
+          prev[0] +
+            circles[j][i].amp *
+              Math.cos(circles[j][i].freq * frame + circles[j][i].phase),
+          prev[1] +
+            circles[j][i].amp *
+              Math.sin(circles[j][i].freq * frame + circles[j][i].phase),
+        ];
+
+        if (!(i === 0 && circles[j][i].freq === 0)) {
+          ctx.beginPath();
+          ctx.arc(prev[0], prev[1], circles[j][i].amp, 0, 2 * Math.PI);
+          ctx.stroke();
+        }
+        prev = cur;
+      }
+    }
+  };
+
+  const shouldClearPath = useRef(false);
+
+  useEffect(() => {
+    shouldClearPath.current = true;
+  }, [props]);
+
+  const drawPath = (ctx, frame) => {
+    ctx.resetTransform();
+    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+    ctx.scale(1, -1); // Flip vertically
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = colour;
+
+    for (let i = 0; i < curPoint.current.length; i++) {
+      if (prevPoint.current[i] && curPoint.current[i]) {
+        ctx.beginPath();
+        ctx.moveTo(prevPoint.current[i].x, prevPoint.current[i].y);
+        ctx.lineTo(curPoint.current[i].x, curPoint.current[i].y);
+        ctx.stroke();
+      }
+    }
+
+    if (shouldClearPath.current) {
+      ctx.clearRect(
+        -ctx.canvas.width / 2,
+        -ctx.canvas.height / 2,
+        ctx.canvas.width,
+        ctx.canvas.height
+      );
+      shouldClearPath.current = false;
+    }
+  };
+
+  return (
+    <div>
+      <Canvas
+        draw={drawPath}
+        speed={speed}
+        {...props}
+        className="absolute left-0 top-0 z-0"
+      />
+      <Canvas
+        draw={drawCycles}
+        speed={speed}
+        {...props}
+        className="absolute left-0 top-0 z-0"
+      />
+    </div>
+  );
+}

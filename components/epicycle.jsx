@@ -85,7 +85,7 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
 
   useEffect(() => {
     shouldClearPath.current = true;
-  }, [points, speed, colour, glow]);
+  }, [points, speed, colour, glow, props]);
 
   const hue = useRef(0);
 

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Epicycle from "@/components/epicycle";
 import DrawingCanvas from "@/components/drawingCanvas";
 import { useState } from "react";
