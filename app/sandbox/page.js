@@ -10,7 +10,7 @@ import "@/components/colorPicker.css";
 
 export default function Sandbox() {
   const [speed, setSpeed] = useState(0.01);
-  const [colour, setColour] = useState("#ff0000");
+  const [colour, setColour] = useState("Rainbow");
   const [glow, setGlow] = useState(true);
 
   const handleChange = (event) => {
@@ -39,88 +39,90 @@ export default function Sandbox() {
 
   return (
     <div className="flex h-screen w-full">
-      <aside className="w-72 flex-shrink-0 text-[#F4FFF8] font-mono p-2">
-        <h1 className="text-4xl font-bold">Fourier Transforms</h1>
-        <p className="text-l mt-2 text-[#F4FFF8] text-opacity-75">
-          Any path drawn on the canvas is approximated using a sequence of
-          rotating circles based on the Fourier Transform. Each circle has a
-          different radius, phase, and frequency, which, when combined,
-          recreates the original path.
-        </p>
-
-        {/* Speed slider */}
-        <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
-          <div className="flex justify-between">
-            <h2 className="text-xl font-bold">Speed</h2>
-            <p className="text-xl font">{speed}</p>
-          </div>
-          <p className="text-md pb-2 text-[#F4FFF8] text-opacity-50">
-            Adjust the speed of the epicycle animation.
+      <aside className=" w-80 flex-shrink-0 text-[#F4FFF8] font-mono p-5 flex flex-col justify-center">
+        <div>
+          <h1 className="text-4xl font-bold">Fourier Transforms</h1>
+          <p className="text-l mt-2 text-[#F4FFF8] text-opacity-75">
+            Any path drawn on the canvas is approximated using a sequence of
+            rotating circles based on the Fourier Transform. Each circle has a
+            different radius, phase, and frequency, which, when combined,
+            recreates the original path.
           </p>
 
-          <div className="p-2 flex bg-[#0F1A19] justify-center items-center rounded-full border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]">
-            <input
-              type="range"
-              min="0.001"
-              max="0.02"
-              step="0.001"
-              value={speed}
-              onChange={handleChange}
-              className="w-full"
-            />
-          </div>
-        </div>
+          {/* Speed slider */}
+          <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
+            <div className="flex justify-between">
+              <h2 className="text-xl font-bold">Speed</h2>
+              <p className="text-xl font">{speed}</p>
+            </div>
+            <p className="text-md pb-2 text-[#F4FFF8] text-opacity-50">
+              Adjust the speed of the epicycle animation.
+            </p>
 
-        {/* Colour picker */}
-        <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
-          <div className="flex justify-between">
-            <h2 className="text-xl font-bold">Colour</h2>
-            <p className="text-xl font">{colour}</p>
-          </div>
-          <p className="text-md pb-2 text-[#F4FFF8] text-opacity-50">
-            Change the colour of the drawn path.
-          </p>
-
-          <HexColorPicker
-            color={colour}
-            onChange={setColour}
-            style={{ width: "100%", height: "100px" }}
-            className="border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] rounded-[10px]"
-          />
-
-          <div className="h-[48px] mt-2 flex items-center justify-center">
-            <button
-              className={`bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3 w-full rainbow transition-transform ${
-                colour === "Rainbow"
-                  ? "opacity-75 cursor-not-allowed pointer-events-none rainbow-animation"
-                  : "hover:scale-105"
-              }`}
-              onClick={() => setColour("Rainbow")}
-              disabled={colour === "Rainbow"}
-            >
-              Rainbow
-            </button>
-          </div>
-        </div>
-
-        {/* Glow toggle */}
-        <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold">Glow</h2>
-            <div className="flex justify-center items-center">
-            <label className="toggle-switch">
+            <div className="p-2 flex bg-[#0F1A19] justify-center items-center rounded-full border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)]">
               <input
-                type="checkbox"
-                checked={glow}
-                onChange={() => setGlow(!glow)}
+                type="range"
+                min="0.001"
+                max="0.02"
+                step="0.001"
+                value={speed}
+                onChange={handleChange}
+                className="w-full"
               />
-              <span className="toggle-slider"></span>
-            </label>
+            </div>
           </div>
+
+          {/* Colour picker */}
+          <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
+            <div className="flex justify-between">
+              <h2 className="text-xl font-bold">Colour</h2>
+              <p className="text-xl font">{colour}</p>
+            </div>
+            <p className="text-md pb-2 text-[#F4FFF8] text-opacity-50">
+              Change the colour of the drawn path.
+            </p>
+
+            <HexColorPicker
+              color={colour}
+              onChange={setColour}
+              style={{ width: "100%", height: "100px" }}
+              className="border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] rounded-[10px]"
+            />
+
+            <div className="h-[48px] mt-2 flex items-center justify-center">
+              <button
+                className={`bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3 w-full rainbow transition-transform ${
+                  colour === "Rainbow"
+                    ? "opacity-75 cursor-not-allowed pointer-events-none rainbow-animation"
+                    : "hover:scale-105"
+                }`}
+                onClick={() => setColour("Rainbow")}
+                disabled={colour === "Rainbow"}
+              >
+                Rainbow
+              </button>
+            </div>
           </div>
-          <p className="text-md text-[#F4FFF8] text-opacity-50">
-            Turn glow on or off.
-          </p>
+
+          {/* Glow toggle */}
+          <div className="mt-5 bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold">Glow</h2>
+              <div className="flex justify-center items-center">
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={glow}
+                    onChange={() => setGlow(!glow)}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            <p className="text-md text-[#F4FFF8] text-opacity-50">
+              Turn glow on or off.
+            </p>
+          </div>
         </div>
       </aside>
 
