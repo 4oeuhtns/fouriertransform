@@ -102,8 +102,12 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
 
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 3;
     ctx.strokeStyle = colour;
+    ctx.shadowBlur = 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor = `${colour}50`;
 
     for (let i = 0; i < curPoint.current.length; i++) {
       if (prevPoint.current[i] && curPoint.current[i]) {
