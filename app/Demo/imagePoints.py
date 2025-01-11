@@ -20,7 +20,7 @@ _, threshold = cv2.threshold(img, 10, 255, cv2.THRESH_BINARY)
 contours, _= cv2.findContours(threshold, cv2.RETR_TREE, 
                             cv2.CHAIN_APPROX_SIMPLE) 
 
-def add_points(coords, distance=100): 
+def add_points(coords, distance=10): 
     new_coords = [] 
     for i in range(len(coords) - 1): 
         start = np.array(coords[i]) 
@@ -70,7 +70,7 @@ for cnt in contours :
                         font, 0.5, (0, 255, 0)) 
         i = i + 1
 
-    a.append(arr)
+    a.append(add_points(arr))
 
 print(a)
 
