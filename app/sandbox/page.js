@@ -102,7 +102,7 @@ export default function Sandbox() {
                 className={`bg-[#0F1A19] rounded-lg border-2 border-[#293b39] shadow-[-1px_-1px_6px_rgba(244,255,248,0.25),3px_3px_8px_rgba(0,0,0,0.75)] p-3 w-full rainbow transition-transform ${
                   colour === "Rainbow"
                     ? "opacity-75 cursor-not-allowed pointer-events-none rainbow-animation"
-                    : "hover:scale-105"
+                    : ""
                 }`}
                 onClick={() => setColour("Rainbow")}
                 disabled={colour === "Rainbow"}
