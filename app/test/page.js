@@ -2,6 +2,7 @@
 import CombinedEpicycle from "@/components/combinedEpicycle";
 import useWindowDimensions from "@/components/windowDimensions";
 import Frame from "@/components/frame";
+import "@/components/styles.css";
 
 function Slider() {
   let pointstest = [
@@ -1229,7 +1230,8 @@ function Slider() {
 
   const { width, height } = useWindowDimensions();
   return (
-    <div className="h-screen w-full flex flex-col items-center bg-[length:30px_30px] bg-[linear-gradient(to_right,#293b39_1px,transparent_1px),linear-gradient(to_bottom,#293b39_1px,transparent_1px)]">
+    <div className="bg-[length:30px_30px] bg-[linear-gradient(to_right,#293b39_1px,transparent_1px),linear-gradient(to_bottom,#293b39_1px,transparent_1px)] no-scrollbar">
+      <Frame />
       <CombinedEpicycle
         points={pointstest}
         speed={0.01}
@@ -1238,7 +1240,9 @@ function Slider() {
         colour={"#F4FFF8"}
         className="absolute left-0 top-0"
       />
-      <Frame />
+      <div className="h-screen w-full"></div>
+      <div className="h-screen w-full"></div>
+      <div className="h-screen w-full"></div>
     </div>
   );
 }
