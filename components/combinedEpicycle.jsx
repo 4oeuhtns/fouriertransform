@@ -92,11 +92,12 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     shouldClearPath.current = true;
   }, [props]);
 
-  const clearing = useRef(false);
+  const clearing = useRef(1);
 
   const drawPath = (ctx, frame) => {
     if (frame === 0) {
-      clearing.current = !clearing.current;
+      clearing.current += 1;
+      clearing.current %= 3;
     }
     ctx.resetTransform();
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
@@ -114,7 +115,7 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = `${colour}50`;
 
-    if (clearing.current) {
+    if (clearing.current === 0) {
       ctx.globalCompositeOperation = "destination-out";
       ctx.lineWidth = 6;
     } else {
