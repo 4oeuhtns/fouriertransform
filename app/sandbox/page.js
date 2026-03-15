@@ -3,7 +3,7 @@
 import Epicycle from "@/components/epicycle";
 import DrawingCanvas from "@/components/drawingCanvas";
 import useWindowDimensions from "@/components/windowDimensions";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { HexColorPicker } from "react-colorful";
 import Link from "next/link";
 import "@/components/styles.css";
@@ -23,29 +23,17 @@ export default function Sandbox() {
   const [colour, setColour] = useState("Rainbow");
   const [glow, setGlow] = useState(true);
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setSpeed(parseFloat(event.target.value));
-  };
+  }, []);
 
   const [points, setPoints] = useState([]);
 
-  const handlePointsUpdate = (updatedPoints) => {
-    // do we need
-    if (arrayEquals(updatedPoints, [])) {
-    }
+  const handlePointsUpdate = useCallback((updatedPoints) => {
     setPoints(updatedPoints);
-  };
+  }, []);
 
   const { width, height } = useWindowDimensions();
-
-  function arrayEquals(a, b) {
-    return (
-      Array.isArray(a) &&
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every((val, index) => val === b[index])
-    );
-  }
 
   return (
     <div className="flex h-screen w-full">

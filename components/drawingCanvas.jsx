@@ -4,13 +4,17 @@ import { useRef, useState, useEffect } from "react";
 export default function DrawingCanvas({ onPointsUpdate, width, height }) {
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
-  const [pointsDraw, setPointsDraw] = useState([]);
+  const pointsDrawRef = useRef([]);
+  const rectRef = useRef(null);
   const lastUpdateRef = useRef(Date.now());
   const [points, setPoints] = useState([]);
 
   // Get offsetX/offsetY from touch
   const getTouchPos = (e) => {
-    const rect = canvasRef.current.getBoundingClientRect();
+    if (!rectRef.current) {
+      rectRef.current = canvasRef.current.getBoundingClientRect();
+    }
+    const rect = rectRef.current;
     const touch = e.touches[0];
     return {
       x: touch.clientX - rect.left,
@@ -20,6 +24,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
 
   const startDrawing = (e) => {
     e.preventDefault();
+    rectRef.current = canvasRef.current.getBoundingClientRect();
     let offsetX, offsetY;
     if (e.type === "touchstart") {
       const pos = getTouchPos(e);
@@ -32,7 +37,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     }
     if (!isDrawingRef.current) clearCanvas();
     isDrawingRef.current = true;
-    setPointsDraw([[offsetX, offsetY]]);
+    pointsDrawRef.current = [[offsetX, offsetY]];
   };
 
   const draw = (e) => {
@@ -53,10 +58,11 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
       lastUpdateRef.current = now;
       setPoints((prevPoints) => [...prevPoints, [offsetX - width / 2, -(offsetY - height / 2)]]);
     }
-    setPointsDraw((prevPoints) => [...prevPoints, [offsetX, offsetY]]);
+    
+    const lastPoint = pointsDrawRef.current[pointsDrawRef.current.length - 1];
+    pointsDrawRef.current.push([offsetX, offsetY]);
 
     const ctx = canvasRef.current.getContext("2d");
-    const lastPoint = pointsDraw[pointsDraw.length - 1];
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -77,19 +83,24 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     e.preventDefault();
 
     if (isDrawingRef.current) {
-
+      const pointsDraw = pointsDrawRef.current;
       if (pointsDraw.length > 1) {
         const firstPoint = pointsDraw[0];
         const lastPoint = pointsDraw[pointsDraw.length - 1];
         const distance = Math.sqrt(Math.pow(lastPoint[0] - firstPoint[0], 2) + Math.pow(lastPoint[1] - firstPoint[1], 2));
         const numIntermediatePoints = Math.floor(distance / 100);
-        for (let i = numIntermediatePoints; i >= 1; i--) {
-          const t = i / (numIntermediatePoints + 1);
-          const intermediatePoint = [(1 - t) * firstPoint[0] + t * lastPoint[0], (1 - t) * firstPoint[1] + t * lastPoint[1],];
-          setPoints((prevPoints) => [...prevPoints, [intermediatePoint[0] - width / 2, -(intermediatePoint[1] - height / 2)],]);
+        if (numIntermediatePoints > 0) {
+          const newPoints = [];
+          for (let i = numIntermediatePoints; i >= 1; i--) {
+            const t = i / (numIntermediatePoints + 1);
+            const intermediatePoint = [(1 - t) * firstPoint[0] + t * lastPoint[0], (1 - t) * firstPoint[1] + t * lastPoint[1],];
+            newPoints.push([intermediatePoint[0] - width / 2, -(intermediatePoint[1] - height / 2)]);
+          }
+          setPoints((prevPoints) => [...prevPoints, ...newPoints]);
         }
       }
       isDrawingRef.current = false;
+      rectRef.current = null;
       console.log(JSON.stringify(points))
 
       const ctx = canvasRef.current.getContext("2d");
@@ -101,7 +112,7 @@ export default function DrawingCanvas({ onPointsUpdate, width, height }) {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setPointsDraw([]);
+    pointsDrawRef.current = [];
     setPoints([]);
   };
 
