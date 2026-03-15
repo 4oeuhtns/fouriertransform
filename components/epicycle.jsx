@@ -39,42 +39,35 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.beginPath();
     let prev = [0, 0];
     let cur = [];
+    const cyclePoints = [];
     for (let i = 0; i < circles.length; i++) {
+      const c = circles[i];
+      const angle = c.freq * frame + c.phase;
       cur = [
-        prev[0] +
-          circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
-        prev[1] +
-          circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase),
+        prev[0] + c.amp * Math.cos(angle),
+        prev[1] + c.amp * Math.sin(angle),
       ];
 
-      if (!(i === 0 && circles[i].freq === 0)) {
+      if (!(i === 0 && c.freq === 0)) {
         ctx.moveTo(prev[0], prev[1]);
         ctx.lineTo(cur[0], cur[1]);
       }
 
+      cyclePoints.push({ x: prev[0], y: prev[1], amp: c.amp, freq: c.freq });
       prev = cur;
     }
     ctx.stroke();
 
     ctx.strokeStyle = "rgba(150,255,50,0.3)";
-    prev = [0, 0];
-    cur = [];
-    for (let i = 0; i < circles.length; i++) {
-      cur = [
-        prev[0] +
-          circles[i].amp * Math.cos(circles[i].freq * frame + circles[i].phase),
-        prev[1] +
-          circles[i].amp * Math.sin(circles[i].freq * frame + circles[i].phase),
-      ];
-
-      if (!(i === 0 && circles[i].freq === 0)) {
-        ctx.beginPath();
-        ctx.arc(prev[0], prev[1], circles[i].amp, 0, 2 * Math.PI);
-        ctx.stroke();
+    ctx.beginPath();
+    for (let i = 0; i < cyclePoints.length; i++) {
+      const p = cyclePoints[i];
+      if (!(i === 0 && p.freq === 0)) {
+        ctx.moveTo(p.x + p.amp, p.y);
+        ctx.arc(p.x, p.y, p.amp, 0, 2 * Math.PI);
       }
-
-      prev = cur;
     }
+    ctx.stroke();
 
     currentPoint.current = {
       x: cur[0],
@@ -98,29 +91,26 @@ export default function Epicycle({ points, speed, colour, glow, ...props }) {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.lineWidth = 5;
-    if (colour === "Rainbow") {
-      ctx.strokeStyle = `hsl(${hue.current}, 100%, 50%)`;
-    } else {
-      ctx.strokeStyle = colour;
-    }
-    
-    if (glow === true) {
-      ctx.shadowBlur = 5;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      if (colour === "Rainbow") {
-        ctx.shadowColor = `hsl(${hue.current}, 100%, 50%, 0.75)`;
-      } else {
-        ctx.shadowColor = `${colour}75`;
-      }
-    } else {
-      ctx.shadowBlur = 0;
-    }
+    ctx.strokeStyle = colour === "Rainbow" ? `hsl(${hue.current}, 100%, 50%)` : colour;
+    ctx.shadowBlur = 0;
     
     // Draw path between previous and current points
     ctx.beginPath();
     ctx.moveTo(prevPoint.current.x, prevPoint.current.y);
     ctx.lineTo(currentPoint.current.x, currentPoint.current.y);
+
+    if (glow === true) {
+      ctx.lineWidth = 9;
+      ctx.globalAlpha = 0.2;
+      ctx.stroke();
+      
+      ctx.lineWidth = 7;
+      ctx.globalAlpha = 0.4;
+      ctx.stroke();
+    }
+    
+    ctx.lineWidth = 5;
+    ctx.globalAlpha = 1.0;
     ctx.stroke();
     
 

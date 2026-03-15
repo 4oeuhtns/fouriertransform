@@ -4,6 +4,13 @@ import { useRef, useEffect } from "react";
 
 export default function Canvas({ speed, draw, ...props }) {
   const canvasRef = useRef(null);
+  const drawRef = useRef(draw);
+  const speedRef = useRef(speed);
+
+  useEffect(() => {
+    drawRef.current = draw;
+    speedRef.current = speed;
+  }, [draw, speed]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,9 +22,9 @@ export default function Canvas({ speed, draw, ...props }) {
 
     // draws each frame according to frame rate by requestAnimationFrame
     const render = () => {
-      frame += speed;
+      frame += speedRef.current;
       if (frame >= (2 * Math.PI)) frame = 0;
-      draw(ctx, frame);
+      drawRef.current(ctx, frame);
       animationFrameId = window.requestAnimationFrame(render);
     };
     render();
@@ -26,7 +33,7 @@ export default function Canvas({ speed, draw, ...props }) {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [draw]);
+  }, []);
 
   return <canvas ref={canvasRef} {...props}></canvas>;
 }

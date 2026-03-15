@@ -1,13 +1,16 @@
 "use client";
 import { solver } from "@/components/algorithm";
 import Canvas from "@/components/canvas";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 
 export default function CombinedEpicycle({ points, speed, colour, ...props }) {
-  let circles = [];
-  for (let i = 0; i < points.length; i++) {
-    circles[i] = solver(points[i]);
-  }
+  const circles = useMemo(() => {
+    let result = [];
+    for (let i = 0; i < points.length; i++) {
+      result[i] = solver(points[i]);
+    }
+    return result;
+  }, [points]);
 
   const curPoint = useRef([]);
   const prevPoint = useRef([]);
@@ -25,63 +28,61 @@ export default function CombinedEpicycle({ points, speed, colour, ...props }) {
     );
 
     prevPoint.current = { ...curPoint.current };
+    const allSegments = [];
+
     for (let j = 0; j < circles.length; j++) {
-      // Draw vector
-      ctx.beginPath();
-      let prev = [0, 0];
-      let cur = [];
+      let prevX = 0;
+      let prevY = 0;
+      let curX = 0;
+      let curY = 0;
+      let segments = [];
 
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "rgb(26,143,227)";
       for (let i = 0; i < circles[j].length; i++) {
-        cur = [
-          prev[0] +
-            circles[j][i].amp *
-              Math.cos(circles[j][i].freq * frame + circles[j][i].phase),
-          prev[1] +
-            circles[j][i].amp *
-              Math.sin(circles[j][i].freq * frame + circles[j][i].phase),
-        ];
+        const c = circles[j][i];
+        const angle = c.freq * frame + c.phase;
+        curX = prevX + c.amp * Math.cos(angle);
+        curY = prevY + c.amp * Math.sin(angle);
 
-        if (!(i === 0 && circles[j][i].freq === 0)) {
-          ctx.moveTo(prev[0], prev[1]);
-          ctx.lineTo(cur[0], cur[1]);
-        }
-        prev = cur;
+        segments.push(prevX, prevY, curX, curY);
+        prevX = curX;
+        prevY = curY;
       }
-      ctx.stroke();
+      allSegments.push(segments);
 
       curPoint.current[j] = {
-        x: cur[0],
-        y: cur[1],
+        x: curX,
+        y: curY,
       };
     }
 
-    for (let j = 0; j < circles.length; j++) {
-      let prev = [0, 0];
-      let cur = [];
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "rgba(150,255,50,0.3)";
-      for (let i = 0; i < circles[j].length; i++) {
-        cur = [
-          prev[0] +
-            circles[j][i].amp *
-              Math.cos(circles[j][i].freq * frame + circles[j][i].phase),
-          prev[1] +
-            circles[j][i].amp *
-              Math.sin(circles[j][i].freq * frame + circles[j][i].phase),
-        ];
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 2;
 
+    ctx.strokeStyle = "rgb(26,143,227)";
+    for (let j = 0; j < allSegments.length; j++) {
+      ctx.beginPath();
+      const segments = allSegments[j];
+      for (let i = 0; i < circles[j].length; i++) {
+        const idx = i * 4;
+        if (!(i === 0 && circles[j][i].freq === 0)) {
+          ctx.moveTo(segments[idx], segments[idx + 1]);
+          ctx.lineTo(segments[idx + 2], segments[idx + 3]);
+        }
+      }
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = "rgba(150,255,50,0.3)";
+    for (let j = 0; j < allSegments.length; j++) {
+      const segments = allSegments[j];
+      for (let i = 0; i < circles[j].length; i++) {
+        const idx = i * 4;
         if (!(i === 0 && circles[j][i].freq === 0)) {
           ctx.beginPath();
-          ctx.arc(prev[0], prev[1], circles[j][i].amp, 0, 2 * Math.PI);
+          ctx.arc(segments[idx], segments[idx + 1], circles[j][i].amp, 0, 2 * Math.PI);
           ctx.stroke();
         }
-        prev = cur;
       }
     }
   };
